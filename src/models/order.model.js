@@ -19,6 +19,7 @@ const studentInfoSchema = new mongoose.Schema(
             lowercase: true
         },
     },
+    {_id: false}
 );
 
 
