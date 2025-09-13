@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs"
-// import jwt from "jsonwebtoken"
-import generateToken from "../utils/jwt";
+import { generateToken } from "../utils/jwt";
 
 const userSchema = new Schema({
     name: {
@@ -39,7 +38,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 userSchema.methods.generateAuthToken = function () {
 
-    return generateToken({id:this._id,name:this.name},process.env.JWT_SECRET,'5h')
+    return generateToken({ id: this._id, name: this.name }, process.env.JWT_SECRET, '5h')
 }
 
 const User = mongoose.model('User', userSchema)

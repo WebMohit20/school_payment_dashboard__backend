@@ -12,11 +12,9 @@ const orderStatusSchema = new Schema({
     },
     transaction_amount: {
         type: Number,
-        required: true
     },
     payment_mode: {
         type: String,
-        required: true,
         trim: true
     },
     payment_details: {
@@ -25,7 +23,6 @@ const orderStatusSchema = new Schema({
     },
     bank_refrence: {
         type: String,
-        required: true
     },
     payment_message: {
         type: String,
@@ -34,22 +31,20 @@ const orderStatusSchema = new Schema({
     status: {
         type: String,
         required: true,
-        enum: ["pending", "success", "failed"],
-        default: "pending",
+        default: "PENDING",
     },
     error_message: {
         type: String,
         trim: true
     },
-    payment_time:{
-        type:Date,
-        required: true,
+    payment_time: {
+        type: Date,
         default: Date.now
     }
 
 },
-{timestamps: true})
+    { timestamps: true })
 
-const OrderStatus = mongoose.model('OrderStatus',orderStatusSchema)
+const OrderStatus = mongoose.model('OrderStatus', orderStatusSchema)
 
 export default OrderStatus

@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken"
 
-function generateToken(payload, secret, expiresIn = "30d") {
+export function generateToken(payload, secret, expiresIn = "30d") {
     return jwt.sign(payload, secret, { algorithm: "HS256", expiresIn });
 }
 
+export function verifyToken(token,secret){
+    return jwt.verify(token,secret)
+}
 
-export default generateToken;

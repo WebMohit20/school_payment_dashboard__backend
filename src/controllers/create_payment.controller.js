@@ -1,5 +1,5 @@
 import axios from "axios"
-import generateToken from "../utils/jwt.js"
+import { generateToken } from "../utils/jwt.js"
 import Order from "../models/order.model.js"
 import OrderStatus from "../models/orderStatus.model.js"
 
@@ -11,8 +11,8 @@ export const createPayment = async (req, res) => {
             return res.status(400).json({ sucess: false, message: "school_id,amount,callback_url are required" })
         }
 
-        const sign = generateToken({ school_id, amount, callback_url }, process.env.PAYMENT_PG_KEY)
-        console.log("sign", sign)
+        const jwtSign = generateToken({ school_id, amount, callback_url }, process.env.PAYMENT_PG_KEY)
+        console.log("jwtSign", jwtSign)
 
         const response = await axios.post(
             process.env.PAYMENT_API_URL_POST,
@@ -20,7 +20,7 @@ export const createPayment = async (req, res) => {
                 school_id,
                 amount,
                 callback_url,
-                sign
+                sign: jwtSign
             },
             {
                 headers: {
@@ -29,7 +29,8 @@ export const createPayment = async (req, res) => {
                 },
             }
         )
-        const { collect_request_id, Collect_request_url } = response.data;
+        const { collect_request_id, collect_request_url, sign } = response.data;
+
         const order = await Order.create({
             school_id,
             trustee_id,
@@ -45,11 +46,14 @@ export const createPayment = async (req, res) => {
         })
 
         res.status(200).json({
+            success: true,
             message: "payment link created successfully",
             collect_request_id,
-            payment_link: Collect_request_url
+            collect_request_url,
+            sign
         })
-    } catch (error) {
-
+    } catch (err) {
+        console.log("Create payment error", err.message)
+        res.status(500).json({ success: false, message: "Failed to create payment", error: err.message })
     }
 }
