@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 
-function generateToken(payload, secret) {
-    return jwt.sign(payload, secret, { algorithm: "HS256" });
+function generateToken(payload, secret, expiresIn = "30d") {
+    return jwt.sign(payload, secret, { algorithm: "HS256", expiresIn });
 }
 
 

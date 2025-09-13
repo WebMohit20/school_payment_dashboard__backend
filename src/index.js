@@ -1,13 +1,12 @@
-import express from "express"
 import connectDB from "./db/db.js"
 import dotenv from "dotenv";
 dotenv.config();
-import generateToken from "./utils/jwt.js";
+import app from "./app.js";
 
 
-const app = express()
 
 connectDB()
+
 
 
 // const userData = {
@@ -21,10 +20,10 @@ connectDB()
 //   "collect_request_id": "68c31c60154d1bce65b3de53"
 // }
 
-app.listen(process.env.PORT,()=>{
-    console.log('app is running on ',process.env.PORT);
-    // const token = generateToken(sign, process.env.PG_KEY);
+app.listen(process.env.PORT, () => {
+    console.log('app is running on ', process.env.PORT);
+    // const token = generateToken(sign, process.env.PG_KEY,1h);
     // console.log("Generated JWT:", token);
-    
-    
+
+
 })
