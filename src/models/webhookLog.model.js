@@ -10,14 +10,14 @@ const webhookLogSchema = new Schema({
     },
     received_at: {
         type: Date,
-        default: Date.now, // when the webhook hit your server
+        default: Date.now, 
     },
     processed: {
         type: Boolean,
-        default: false, // whether this webhook has been handled successfully
+        default: false, 
     },
     error: {
-        type: String, // store error message if processing failed
+        type: String, 
     }
 }, { timestamps: true })
 
