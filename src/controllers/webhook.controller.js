@@ -1,5 +1,5 @@
 import OrderStatus from "../models/orderStatus.model.js";
-import WebhookLog from "../models/webHookLog.model.js";
+import WebhookLog from "../models/webhookLog.model.js"
 
 export const webhookHandler = async (req, res) => {
     try {
