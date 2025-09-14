@@ -3,7 +3,8 @@ import User from "../models/user.model.js"
 
 export const checkAuth = async (req, res, next) => {
     try {
-        const { token } = req.cookies
+        // console.log(req.hasOwnProperty("cookies"))
+        const token  = req.cookies?.token
 
         if (!token) {
             return res.status(401).json({ success: false, message: "Unauthorized - No Token Provided" })

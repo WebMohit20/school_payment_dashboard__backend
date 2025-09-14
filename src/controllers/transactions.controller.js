@@ -15,7 +15,6 @@ export const allTransactions = async (req, res) => {
                 }
             },
             { $unwind: "$order_info" },
-            { $match: { "order_info.school_id": "SCH-101" } },
             {
                 $project: {
                     collect_id: 1,
@@ -54,7 +53,18 @@ export const tractionsBySchool = async (req, res) => {
                 }
             },
             { $unwind: "$order_info" },
-            { $match: { "order_info.school_id": schoolId } }
+            { $match: { "order_info.school_id": "SCH-101" } },
+            {
+                $project: {
+                    collect_id: 1,
+                    order_amount: 1,
+                    status: 1,
+                    transaction_amount: 1,
+                    "order_info.school_id": 1,
+                    "order_info.gateway_name": 1,
+                    _id: 0
+                }
+            }
         ])
 
         console.log(transactions)
