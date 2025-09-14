@@ -1,6 +1,4 @@
-import { Router } from "express";
-import Order from "../models/order.model.js";
-import OrderStatus from "../models/orderStatus.js";
+import OrderStatus from "../models/orderStatus.model.js";
 import { generateToken } from "../utils/jwt.js";
 import axios from "axios";
 
@@ -16,7 +14,19 @@ export const allTransactions = async (req, res) => {
                     as: "order_info"
                 }
             },
-            { $unwind: "$order_info" }
+            { $unwind: "$order_info" },
+            { $match: { "order_info.school_id": "SCH-101" } },
+            {
+                $project: {
+                    collect_id: 1,
+                    order_amount: 1,
+                    status: 1,
+                    transaction_amount: 1,
+                    "order_info.school_id": 1,
+                    "order_info.gateway_name": 1,
+                    _id: 0
+                }
+            }
         ])
 
         res.status(200).json({ success: true, message: "All Transactions", transactions })
@@ -29,10 +39,12 @@ export const allTransactions = async (req, res) => {
 export const tractionsBySchool = async (req, res) => {
     try {
         const { schoolId } = req.params
+
+        // console.log(schoolId)
         if (!schoolId) {
             return res.status(400).json({ success: false, message: "School id required" })
         }
-        const transactions = OrderStatus.aggregate([
+        const transactions = await OrderStatus.aggregate([
             {
                 $lookup: {
                     from: "orders",
@@ -40,15 +52,16 @@ export const tractionsBySchool = async (req, res) => {
                     foreignField: "_id",
                     as: "order_info"
                 }
-
             },
             { $unwind: "$order_info" },
             { $match: { "order_info.school_id": schoolId } }
         ])
-        res.status(200).json({success:true,message:"Transactions by School Id",transactions})
+
+        console.log(transactions)
+        res.status(200).json({ success: true, message: "Transactions by School Id", transactions })
     } catch (err) {
-        console.log("Transactions by school error: ",err.message)
-        res.status(500).json({success:false,message:"failed to fetch transactions"})
+        console.log("Transactions by school error: ", err.message)
+        res.status(500).json({ success: false, message: "failed to fetch transactions" })
     }
 }
 

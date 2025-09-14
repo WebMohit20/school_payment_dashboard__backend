@@ -7,7 +7,7 @@ export const createPayment = async (req, res) => {
     try {
         const { school_id, trustee_id, student_info, gateway_name, amount, callback_url } = req.body
 
-        if (!school_id || !amount || !callback_url) {
+        if (  !amount || !callback_url) {
             return res.status(400).json({ sucess: false, message: "school_id,amount,callback_url are required" })
         }
 
@@ -17,7 +17,7 @@ export const createPayment = async (req, res) => {
         const response = await axios.post(
             process.env.PAYMENT_API_URL_POST,
             {
-                school_id,
+                school_id: process.env.SCHOOL_ID,
                 amount,
                 callback_url,
                 sign: jwtSign
