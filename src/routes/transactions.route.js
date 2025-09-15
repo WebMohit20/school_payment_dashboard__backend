@@ -1,14 +1,23 @@
 import { Router } from "express";
-import { tractionsBySchool,allTransactions,transactionStatus } from "../controllers/transactions.controller.js";
-import { checkAuth } from "../middelwears/auth.middelwear.js";
+import {
+    tractionsBySchool,
+    allTransactions,
+    transactionStatus
+} from "../controllers/transactions.controller.js";
+import {
+    transactionsValidator,
+    transactionStatusValidator,
+    tractionsBySchoolValidator
+} from "../validators/transaction.validator.js";
 
+import { validateRequest } from "../middelwears/validateRequest.middelwear.js";
 
 const router = Router()
 
-router.get("/transactions",checkAuth, allTransactions)
+router.get("/transactions", transactionsValidator, validateRequest, allTransactions)
 
-router.get("/transactions/school/:schoolId",checkAuth, tractionsBySchool)
+router.get("/transactions/school/:schoolId", tractionsBySchoolValidator, validateRequest, tractionsBySchool)
 
-router.get("/transaction-status/:collect_request_id",checkAuth, transactionStatus)
+router.get("/transaction-status/:collect_request_id", transactionStatusValidator, validateRequest, transactionStatus)
 
 export default router

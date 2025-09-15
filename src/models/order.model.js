@@ -47,7 +47,7 @@ const orderSchema = new Schema({
 },
 { timestamps: true })
 
-
+orderSchema.index({ school_id: 1 });
 const Order = mongoose.model('Order',orderSchema)
 
 export default Order

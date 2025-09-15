@@ -43,8 +43,12 @@ const orderStatusSchema = new Schema({
     }
 
 },
-    { timestamps: true })
+    { timestamps: true }
+)
 
+orderStatusSchema.index({ collect_id: 1 }); 
+orderStatusSchema.index({ status: 1 }); 
+orderStatusSchema.index({ payment_time: -1 });
 const OrderStatus = mongoose.model('OrderStatus', orderStatusSchema)
 
 export default OrderStatus

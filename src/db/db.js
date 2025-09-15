@@ -1,12 +1,16 @@
 import mongoose from "mongoose"
+import Order from "../models/order.model.js"
+import OrderStatus from "../models/orderStatus.model.js"
 
 const connectDB = async () => {
-    try{
+    try {
         const conn = await mongoose.connect(`${process.env.MONGODB_URI}/School`)
-        
+
         console.log(conn.connection.host)
-    }catch(err){
-        console.error('connection error ',err.message)
+        await Order.init();
+        await OrderStatus.init();
+    } catch (err) {
+        console.error('connection error ', err.message)
         process.exit(1)
     }
 }
