@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 
 app.use(cors({
-    origin:"https://school-payment-dashboard-chi.vercel.app",
+    origin:"https://school-payment-dashboard-git-main-mohits-projects-61e93c5c.vercel.app",
     credentials: true
 }))
 
