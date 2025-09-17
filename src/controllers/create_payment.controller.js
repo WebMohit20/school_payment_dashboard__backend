@@ -5,7 +5,7 @@ import OrderStatus from "../models/orderStatus.model.js"
 
 export const createPayment = async (req, res) => {
     try {
-        const { school_id, trustee_id, student_info, gateway_name, amount, callback_url } = req.body
+        const { school_id, trustee_id, student_info, amount, callback_url, gateway_name } = req.body
 
         if (!amount || !callback_url) {
             return res.status(400).json({ success: false, message: "school_id,amount,callback_url are required" })
@@ -35,6 +35,7 @@ export const createPayment = async (req, res) => {
 
         
         const order = await Order.create({
+            _id:collect_request_id,
             school_id,
             trustee_id,
             student_info,
@@ -42,10 +43,11 @@ export const createPayment = async (req, res) => {
         })
 
         await OrderStatus.create({
-            collect_id: order._id,
+            collect_id: collect_request_id,
             order_amount: amount,
             status: "pending",
-            payment_details: collect_request_id
+            transaction_amount:amount,
+
         })
 
         return res.status(200).json({

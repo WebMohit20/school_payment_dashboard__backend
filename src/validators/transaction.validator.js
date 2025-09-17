@@ -18,7 +18,7 @@ export const transactionsValidator = [
 
     query("sort")
         .optional()
-        .isIn(["payment_time", "status", "transaction_amount"])
+        .isIn(["payment_time", "status", "transaction_amount",""])
         .withMessage("sort must be  payment_time, status or transaction_amount only")
         .default("payment_time"),
 
@@ -50,7 +50,7 @@ export const tractionsBySchoolValidator = [
 
     query("sort")
         .optional()
-        .isIn(["payment_time", "status", "transaction_amount"])
+        .isIn(["payment_time", "status", "transaction_amount",""])
         .withMessage("sort must be  payment_time, status or transaction_amount only")
         .default("payment_time"),
 

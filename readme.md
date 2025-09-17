@@ -68,6 +68,7 @@ GET /transaction-status - http://localhost:3000/api/v1/transaction-status/:colle
 request params - {
     collect_request_id:"<string>"
 }
+IN THIS API collect_request_id IS FIXED 
 user must be login for this api
 
 Test webhook api - webhook
