@@ -62,7 +62,7 @@ export const login = async (req, res) => {
 
         res
             .status(200)
-            .cookie("token", token, {
+            .cookie("jwt", token, {
                 httpOnly: true,
                 secure: true
             })

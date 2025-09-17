@@ -13,6 +13,7 @@ app.use(express.json())
 
 app.use(cors({
     origin:"https://school-payment-dashboard-git-main-mohits-projects-61e93c5c.vercel.app",
+    // origin:"http://localhost:5173",
     credentials: true
 }))
 
