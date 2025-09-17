@@ -82,7 +82,7 @@ export const logout = async (req, res) => {
     try {
         res
             .status(200)
-            .clearCookie("token", "", { httpOnly: true, secure: true })
+            .clearCookie("jwt", "", { httpOnly: true, secure: true })
             .json({
                 success: true,
                 message: "User log out successfully",
