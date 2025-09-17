@@ -1,4 +1,4 @@
-Deployed api link - https://school-paymentanddashboardapplication.onrender.com/api/v1
+Deployed api link - http://localhost:3000/api/v1
 
 Project Setup - git clone https://github.com/WebMohit20/school_payment_dashboard__backend.git
 
